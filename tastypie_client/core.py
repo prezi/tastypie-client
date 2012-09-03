@@ -67,7 +67,7 @@ class ResourceProxy(object):
 
     def _get(self):
         """Load the resource
-        
+
         Do nothing if already loaded.
         """
         if not self._resource:
@@ -92,7 +92,7 @@ class Resource(object):
             return self._resource[attr]
         else:
             raise AttributeError(attr)
-    
+
     def __getitem__(self, item):
         if item in self._resource:
             return self._resource[item]
@@ -179,7 +179,7 @@ class Service(object):
 
     def _parse_url(self, url):
         """Extracts the base URL and the base path from the service URL
-        
+
         >>> service.parse_url('http://foo.bar/1/')
         ('http://foo.bar', '/1/')
         """
@@ -259,13 +259,13 @@ class ListProxy(ResourceListMixin):
 class Api(object):
     """The TastyPie client"""
 
-    def __init__(self, service_url, auth=None, serializer=None):
+    def __init__(self, service_url, auth=None, serializer=None, endpoints=None):
         self._auth = auth
         self._service = Service(service_url)
         self._serializer = JsonSerializer() if serializer is None \
                                     else serializer
-        self._endpoints = self._get() # The API endpoint should return 
-                                      # resource endpoints list.
+        # The API endpoint should return resource endpoints list.
+        self._endpoints = endpoints if endpoints is not None else self._get()
 
     def __repr__(self):
         return '<Api: %s>' % self._service.url
@@ -274,7 +274,7 @@ class Api(object):
         """
         Some magic to enable us to dynamically resolves the endpoints names on
         on the Api object.
-        
+
         For example :
             Api('http://localhost:1337/').poney.find(name__startswith='D')
         Generates an HTTP GET request on this URL :
@@ -288,7 +288,7 @@ class Api(object):
 
     def _get_url(self, resource=None, id=None, **kw):
         """Generate an URL
-        
+
         1. The service URL is used as the base string (eg. "/api/1/")
         2. If a `resource` is given, it is appended (eg. "/api/1/country/")
             2.1. If an `id` is given, it is appended (eg. "/api/1/country/2/")
