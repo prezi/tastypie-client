@@ -306,7 +306,7 @@ class Api(object):
             for key, value in kw.items():
                 if isinstance(value, basestring):
                     kw[key] = value.encode('utf-8')
-            url += '?' + urllib.urlencode(kw)
+            url += '?' + urllib.urlencode(kw, doseq=True)
         return url
 
     def _parse_resource(self, resource):
