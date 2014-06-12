@@ -1,2 +1,26 @@
-.idea
+*.py[co]
+
+# Packages
+*.egg
 *.egg-info
+dist
+build
+eggs
+parts
+var
+sdist
+develop-eggs
+.installed.cfg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+virtualenv
+sb-venv
+tests/tests_cache
+tests/nosetests.xml
+etc/overrides.cfg
+.idea
